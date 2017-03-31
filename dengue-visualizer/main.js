@@ -97,9 +97,9 @@ function filterUtil(data, filter) {
 function prefilterUtil(data) {
   var result = {};
   for (var i = 0, len = data.length; i < len; ++i) {
-    var day = parseInt(data[i]['ปีวันเกิดเหตุุ']);
+    var day = parseInt(data[i]['ปีวันเกิดเหตุ']);
     var hour = parseInt(data[i]['เวลาเกิดเหตุ']);
-    hour = (hour === 24)? 0 : hour;
+    // hour = (hour === 24)? 0 : hour;
     // hour = 0;
     if (!(day in result)){
       result[day] = {};
@@ -266,7 +266,7 @@ d3.json("thailand.json", function (json) {
 
 // d3.csv("data/trial-100"+".csv", function(error, data) {
   // d3.csv("data/100_samples_newyear_casualties"+".csv", function(error, data) {
-  d3.csv("data/all-provinces-100.csv", function(error, data) {
+  d3.csv("data/all-provinces-400000.csv", function(error, data) {
     if (error) { // when data is failed to load, do nothing.
       console.error(error);
     } else {
@@ -368,7 +368,7 @@ function startTimelineScene() {
   var parallelism = 1;
   var counter = 0;
 
-  var now = [ 3000, 0 ];
+  var now = [ 3001, 0 ];
   var selected_data;
   var selected_counter = 0;
 
@@ -383,7 +383,8 @@ function startTimelineScene() {
     // console.log(now[0]);
     // console.log(selected_data);
     // console.log(selected_counter);
-    if (now[0] == 15000) return null;
+    // if (now[0] == 15000) return null;
+    if (now[0] == 9307) return null;
     if (selected_data && selected_counter < selected_data.length) {
       return selected_data[selected_counter++];
     }
@@ -395,9 +396,10 @@ function startTimelineScene() {
     selected_data = databucket[now[0]] ? databucket[now[0]][now[1]] : [];
     selected_counter = 0;
 
+    console.log(now);
     // move to next time slot
     now[1]++;
-    if (now[1] === 2) {
+    if (now[1] === 3) {
       now[0]++;
       if (((now[0] - 365)%1000) == 0) {
         now[0] += 1000;
