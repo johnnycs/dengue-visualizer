@@ -97,7 +97,7 @@ function filterUtil(data, filter) {
 function prefilterUtil(data) {
   var result = {};
   for (var i = 0, len = data.length; i < len; ++i) {
-    var day = parseInt(data[i]['วันที่เกิดเหตุ']);
+    var day = parseInt(data[i]['ปีวันเกิดเหตุุ']);
     var hour = parseInt(data[i]['เวลาเกิดเหตุ']);
     hour = (hour === 24)? 0 : hour;
     // hour = 0;
@@ -264,9 +264,9 @@ d3.json("thailand.json", function (json) {
   //- startEmotionalScene();
 
 
-d3.csv("data/trial-100"+".csv", function(error, data) {
+// d3.csv("data/trial-100"+".csv", function(error, data) {
   // d3.csv("data/100_samples_newyear_casualties"+".csv", function(error, data) {
-  // d3.csv("public/data/175_samples_all_newyear_casualties.csv", function(error, data) {
+  d3.csv("data/all-provinces-100.csv", function(error, data) {
     if (error) { // when data is failed to load, do nothing.
       console.error(error);
     } else {
@@ -368,7 +368,7 @@ function startTimelineScene() {
   var parallelism = 1;
   var counter = 0;
 
-  var now = [ 28, 0 ];
+  var now = [ 3000, 0 ];
   var selected_data;
   var selected_counter = 0;
 
@@ -383,7 +383,7 @@ function startTimelineScene() {
     // console.log(now[0]);
     // console.log(selected_data);
     // console.log(selected_counter);
-    // if (now[0] == 4) return null;
+    if (now[0] == 15000) return null;
     if (selected_data && selected_counter < selected_data.length) {
       return selected_data[selected_counter++];
     }
@@ -399,7 +399,9 @@ function startTimelineScene() {
     now[1]++;
     if (now[1] === 2) {
       now[0]++;
-      if (now[0] > 31) now[0] = 1;
+      if (((now[0] - 365)%1000) == 0) {
+        now[0] += 1000;
+      }
       now[1] = 0;
     }
 
@@ -463,7 +465,7 @@ function startTimelineScene() {
     }
 
     // finish at date 4
-    if (now[0] === 4) {
+    if (now[0] === 15000) {
       clearInterval(intervalId);
       endScene();
     }
