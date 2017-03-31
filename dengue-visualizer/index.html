@@ -7,62 +7,64 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Dengue Visualiser</title>
+    <link href="main.css" rel="stylesheet">
     <link href="asset/bootstrap.min.css" rel="stylesheet">
     <link href="asset/jumbotron-narrow.css" rel="stylesheet">
   </head>
-
   <body>
-
-    <div class="container">
-      <div class="header clearfix">
-        <!-- <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="#">Home</a></li>
-            <li role="presentation"><a href="#">About</a></li>
-            <li role="presentation"><a href="#">Contact</a></li>
-          </ul>
-        </nav> -->
-        <h3 class="text-muted" style="margin-top:20px;">Dengue Visualizer</h3>
-      </div>
-
-      <div class="jumbotron">
-        <!-- <canvas id="myCanvas" width="450" height="700">
-              Sorry, your browser doesn't support the &lt;canvas&gt; element.
-        </canvas> -->
-        <div id="vis"></div>
-      </div>
-
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="header clearfix">
+          <div class="col-xs-12 col-md-offset-1">
+            <h2 class="text-muted" style="margin-top:20px;">Dengue Visualizer</h2>
+          </div>
         </div>
       </div>
-
-      <footer class="footer">
-        <p>© 2016 Company, Inc.</p>
-      </footer>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="jumbotron" style="margin-left:50px;margin-right:50px;">
+            <div class="row">
+              <div class="col-md-5">
+                <div id="vis"></div>
+              </div>
+              <div class="col-md-5 col-md-offset-1">
+                <!-- <div class="row marketing">
+                  <h4>Subheading</h4>
+                  <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+                  <h4>Subheading</h4>
+                  <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+                  <h4>Subheading</h4>
+                  <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+                </div> -->
+                <div id="side-panel">
+                  <h4>Accidents during New Year Holidays
+                    <div class="dropdown" id="select-year"><a class="dropdown-toggle" id="select-year-btn" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></a>
+                      <ul class="dropdown-menu" aria-labelledby="select-year-btn">
+                        <li><a href="?year=2008">2008</a></li>
+                        <li><a href="?year=2009">2009</a></li>
+                        <li><a href="?year=2010">2010</a></li>
+                        <li><a href="?year=2011">2011</a></li>
+                        <li><a href="?year=2012">2012</a></li>
+                        <li><a href="?year=2013">2013</a></li>
+                        <li><a href="?year=2014">2014</a></li>
+                        <li><a href="?year=2015">2015</a></li>
+                      </ul>
+                    </div>
+                  </h4>
+                  <div class="timeline" id="timeline">
+                    <div id="slider"></div>
+                    <div id="slider_caption"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
 
     </div> <!-- /container -->
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="jquery-ui.min.js"></script>
+    <script type="text/javascript" src="dropdown.js"></script>
     <script type="text/javascript" src="d3.js"> </script>
     <script type="text/javascript" src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <!-- <script type="text/javascript" src="drawmap.js"></script> -->

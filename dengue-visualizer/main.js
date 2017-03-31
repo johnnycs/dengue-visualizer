@@ -113,30 +113,30 @@ function prefilterUtil(data) {
   return result;
 }
 
-// function parse_search_string(str) {
-//   var split = str.split('&');
-//   var param = {};
-//   for (var i = 0; i < split.length; i++) {
-//     var tuple = split[i].split('=');
-//     param[tuple[0]] = decodeURIComponent(tuple[1]);
-//   }
-//   return param;
-// }
+function parse_search_string(str) {
+  var split = str.split('&');
+  var param = {};
+  for (var i = 0; i < split.length; i++) {
+    var tuple = split[i].split('=');
+    param[tuple[0]] = decodeURIComponent(tuple[1]);
+  }
+  return param;
+}
 
-// var qs = parse_search_string(location.search.slice(1));
-// var select_year = Number(qs.year || 2008);
-// var default_global_filter = {
-//   year: {start: select_year, end: select_year},
-//   time: {start: [31, 0], end: [1, 23]},
-  // sex: [0,1,2],
-  // age: [0,1,2,3,4],
-  // alcohol: [0,1,2],
-  // safety: [0,1,2],
-  // vehicle: [0,1,2,3,4,5],
-  // hitBy: [0,1,2,3,4,5]
-// };
+var qs = parse_search_string(location.search.slice(1));
+var select_year = Number(qs.year || 2008);
+var default_global_filter = {
+  year: {start: select_year, end: select_year},
+  time: {start: [31, 0], end: [1, 23]},
+  sex: [0,1,2],
+  age: [0,1,2,3,4],
+  alcohol: [0,1,2],
+  safety: [0,1,2],
+  vehicle: [0,1,2,3,4,5],
+  hitBy: [0,1,2,3,4,5]
+};
 // clone default filter
-// var global_filter = JSON.parse(JSON.stringify(default_global_filter));
+var global_filter = JSON.parse(JSON.stringify(default_global_filter));
 
 $(function() {
 
@@ -168,7 +168,7 @@ $(function() {
 // start of intiating map on to page
 
 var w = 450;
-var h = 700;
+var h = 663;
 var projection = d3.geo.albers()
     .center([100.0, 13.5])
     .rotate([0, 24])
@@ -283,36 +283,36 @@ d3.json("thailand.json", function (json) {
       //- console.log('ready!');
 
       // init slider
-      // var $slider = $('#slider');
-      // var max_val = 7 * 24;
-      // $slider.slider({
-      //   max: max_val,
-      //   min: 0,
-      //   value: 0,
-      //   step: 1,
-      //   slide: function(e, ui) {
-      //     console.log(e);
-      //     console.log(ui.value);
-      //     var value = ui.value;
-      //     var day = value / 24;
-      //     var hour = value % 24;
-      //     day = (day < 4)? day + 28: day - 3;
-      //     global_filter['time'].end[0] = day;
-      //     global_filter['time'].end[1] = hour;
-      //     // next tick
-      //     // setTimeout(function() {
-      //     //   updateFilter();
-      //     // }, 1);
-      //   },
-      // })
-      // .each(function() {
-      //   // Space out values
-      //   var day_captions= ['Dec 28', 'Dec 29', 'Dec 30', 'Dec 31', 'Jan 1', 'Jan 2', 'Jan 3'];
-      //   for (var i = 0, len = day_captions.length; i < len; ++i) {
-      //     var el = $('<label>' + day_captions[i] + '</label>').css('left',(i/(len)*100)+'%');
-      //     $( "#slider" ).append(el);
-      //   }
-      // });
+      var $slider = $('#slider');
+      var max_val = 7 * 24;
+      $slider.slider({
+        max: max_val,
+        min: 0,
+        value: 0,
+        step: 1,
+        slide: function(e, ui) {
+          console.log(e);
+          console.log(ui.value);
+          var value = ui.value;
+          var day = value / 24;
+          var hour = value % 24;
+          day = (day < 4)? day + 28: day - 3;
+          global_filter['time'].end[0] = day;
+          global_filter['time'].end[1] = hour;
+          // next tick
+          // setTimeout(function() {
+          //   updateFilter();
+          // }, 1);
+        },
+      })
+      .each(function() {
+        // Space out values
+        var day_captions= ['Dec 28', 'Dec 29', 'Dec 30', 'Dec 31', 'Jan 1', 'Jan 2', 'Jan 3'];
+        for (var i = 0, len = day_captions.length; i < len; ++i) {
+          var el = $('<label>' + day_captions[i] + '</label>').css('left',(i/(len)*100)+'%');
+          $( "#slider" ).append(el);
+        }
+      });
 
       //- $slider.slider('disable');
       startTimelineScene();
@@ -323,36 +323,36 @@ d3.json("thailand.json", function (json) {
 
 });
 
-// function updateFilter() {
-//   var filtered_data = filterUtil(dataset, global_filter);
-//   var data;
-//   var optimizeSpeed = true;
-//   var isDead;
-//   var ndead = 0;
-//   console.log(filtered_data.length);
-//   // clear old dots
-//   injuryMap.selectAll('*').remove();
-//   casualtyMap.selectAll('*').remove();
-//
-//   for (var i=0; i<filtered_data.length; i++) {
-//     data = filtered_data[i];
-//     isDead = data['ผลการรักษา'].indexOf('ตาย') >= 0;
-//     if (isDead) ndead++;
-//
-//     // avoid rendering some injury accidents
-//     // to reduce computation time
-//     if (optimizeSpeed && !isDead && i%5 != 0) {
-//       //- counter++;
-//     } else if (shoot(data, isDead, i, false)) {
-//       //- counter++;
-//     }
-//   }
-//
-//   $('#total-casualty .count').text(number_format(filtered_data.length));
-//   $('#died-casualty .count').text(number_format(ndead));
-//   $('#injured-casualty .count').text(number_format(filtered_data.length - ndead));
-//
-// }
+function updateFilter() {
+  var filtered_data = filterUtil(dataset, global_filter);
+  var data;
+  var optimizeSpeed = true;
+  var isDead;
+  var ndead = 0;
+  console.log(filtered_data.length);
+  // clear old dots
+  injuryMap.selectAll('*').remove();
+  casualtyMap.selectAll('*').remove();
+
+  for (var i=0; i<filtered_data.length; i++) {
+    data = filtered_data[i];
+    isDead = data['ผลการรักษา'].indexOf('ตาย') >= 0;
+    if (isDead) ndead++;
+
+    // avoid rendering some injury accidents
+    // to reduce computation time
+    if (optimizeSpeed && !isDead && i%5 != 0) {
+      //- counter++;
+    } else if (shoot(data, isDead, i, false)) {
+      //- counter++;
+    }
+  }
+
+  $('#total-casualty .count').text(number_format(filtered_data.length));
+  $('#died-casualty .count').text(number_format(ndead));
+  $('#injured-casualty .count').text(number_format(filtered_data.length - ndead));
+
+}
 
 function endScene() {
   $('#filter-panel').fadeIn();
@@ -384,7 +384,7 @@ function startTimelineScene() {
     // console.log(selected_data);
     // console.log(selected_counter);
     // if (now[0] == 15000) return null;
-    if (now[0] == 9307) return null;
+    if (now[0] == 3002) return null;
     if (selected_data && selected_counter < selected_data.length) {
       return selected_data[selected_counter++];
     }
@@ -413,7 +413,7 @@ function startTimelineScene() {
 
   function updateTimelineScene() {
     var data;
-    var optimizeSpeed = counter > 400;
+    var optimizeSpeed = counter > 200;
     var $display;
 
     try {
@@ -594,11 +594,11 @@ function shoot(data, order, animate) {
         return 'accident accident-dead accident-'+order;
       })
       .attr('cx', function(d) {
-        return d.center[0] + Math.random()*dv*2 - dv;
+        return d.center[0] + Math.random()*dv*0.5 - dv;
         //- return projection(d.center)[0] + Math.random()*dv*2 - dv;
       })
       .attr('cy', function(d) {;
-        return d.center[1] + Math.random()*dv*2 - dv;
+        return d.center[1] + Math.random()*dv*0.5 - dv;
         //- return projection(d.center)[1] + Math.random()*dv*2 - dv;
       });
     circle
@@ -606,9 +606,9 @@ function shoot(data, order, animate) {
 
     if (animate) {
       circle
-        .attr('r', function(d) { return 3; })
+        .attr('r', function(d) { return 20; })
         .transition()
-        .attr('r', function(d) { return 1; });
+        .attr('r', function(d) { return 0; });
     } else {
       circle
         .attr('r', function(d) { return 1; });
