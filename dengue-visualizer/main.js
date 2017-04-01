@@ -97,9 +97,9 @@ function filterUtil(data, filter) {
 function prefilterUtil(data) {
   var result = {};
   for (var i = 0, len = data.length; i < len; ++i) {
-    var day = parseInt(data[i]['วันที่เกิดเหตุ']);
+    var day = parseInt(data[i]['ปีวันเกิดเหตุ']);
     var hour = parseInt(data[i]['เวลาเกิดเหตุ']);
-    hour = (hour === 24)? 0 : hour;
+    // hour = (hour === 24)? 0 : hour;
     // hour = 0;
     if (!(day in result)){
       result[day] = {};
@@ -113,30 +113,30 @@ function prefilterUtil(data) {
   return result;
 }
 
-// function parse_search_string(str) {
-//   var split = str.split('&');
-//   var param = {};
-//   for (var i = 0; i < split.length; i++) {
-//     var tuple = split[i].split('=');
-//     param[tuple[0]] = decodeURIComponent(tuple[1]);
-//   }
-//   return param;
-// }
+function parse_search_string(str) {
+  var split = str.split('&');
+  var param = {};
+  for (var i = 0; i < split.length; i++) {
+    var tuple = split[i].split('=');
+    param[tuple[0]] = decodeURIComponent(tuple[1]);
+  }
+  return param;
+}
 
-// var qs = parse_search_string(location.search.slice(1));
-// var select_year = Number(qs.year || 2008);
-// var default_global_filter = {
-//   year: {start: select_year, end: select_year},
-//   time: {start: [31, 0], end: [1, 23]},
-  // sex: [0,1,2],
-  // age: [0,1,2,3,4],
-  // alcohol: [0,1,2],
-  // safety: [0,1,2],
-  // vehicle: [0,1,2,3,4,5],
-  // hitBy: [0,1,2,3,4,5]
-// };
+var qs = parse_search_string(location.search.slice(1));
+var select_year = Number(qs.year || 2008);
+var default_global_filter = {
+  year: {start: select_year, end: select_year},
+  time: {start: [31, 0], end: [1, 23]},
+  sex: [0,1,2],
+  age: [0,1,2,3,4],
+  alcohol: [0,1,2],
+  safety: [0,1,2],
+  vehicle: [0,1,2,3,4,5],
+  hitBy: [0,1,2,3,4,5]
+};
 // clone default filter
-// var global_filter = JSON.parse(JSON.stringify(default_global_filter));
+var global_filter = JSON.parse(JSON.stringify(default_global_filter));
 
 $(function() {
 
@@ -168,7 +168,7 @@ $(function() {
 // start of intiating map on to page
 
 var w = 450;
-var h = 700;
+var h = 663;
 var projection = d3.geo.albers()
     .center([100.0, 13.5])
     .rotate([0, 24])
@@ -217,7 +217,7 @@ var province_data = [];
 var number_format = d3.format('0,000');
 var injured_color = d3.rgb('#57c3d3');
 
-d3.json("thailand.json", function (json) {
+d3.json("data/thailand.json", function (json) {
 
   parse_province(json);
 
@@ -264,9 +264,9 @@ d3.json("thailand.json", function (json) {
   //- startEmotionalScene();
 
 
-d3.csv("data/trial-100"+".csv", function(error, data) {
+// d3.csv("data/trial-100"+".csv", function(error, data) {
   // d3.csv("data/100_samples_newyear_casualties"+".csv", function(error, data) {
-  // d3.csv("public/data/175_samples_all_newyear_casualties.csv", function(error, data) {
+  d3.csv("data/all-provinces-400000.csv", function(error, data) {
     if (error) { // when data is failed to load, do nothing.
       console.error(error);
     } else {
@@ -283,36 +283,36 @@ d3.csv("data/trial-100"+".csv", function(error, data) {
       //- console.log('ready!');
 
       // init slider
-      // var $slider = $('#slider');
-      // var max_val = 7 * 24;
-      // $slider.slider({
-      //   max: max_val,
-      //   min: 0,
-      //   value: 0,
-      //   step: 1,
-      //   slide: function(e, ui) {
-      //     console.log(e);
-      //     console.log(ui.value);
-      //     var value = ui.value;
-      //     var day = value / 24;
-      //     var hour = value % 24;
-      //     day = (day < 4)? day + 28: day - 3;
-      //     global_filter['time'].end[0] = day;
-      //     global_filter['time'].end[1] = hour;
-      //     // next tick
-      //     // setTimeout(function() {
-      //     //   updateFilter();
-      //     // }, 1);
-      //   },
-      // })
-      // .each(function() {
-      //   // Space out values
-      //   var day_captions= ['Dec 28', 'Dec 29', 'Dec 30', 'Dec 31', 'Jan 1', 'Jan 2', 'Jan 3'];
-      //   for (var i = 0, len = day_captions.length; i < len; ++i) {
-      //     var el = $('<label>' + day_captions[i] + '</label>').css('left',(i/(len)*100)+'%');
-      //     $( "#slider" ).append(el);
-      //   }
-      // });
+      var $slider = $('#slider');
+      var max_val = 7 * 24;
+      $slider.slider({
+        max: max_val,
+        min: 0,
+        value: 0,
+        step: 1,
+        slide: function(e, ui) {
+          console.log(e);
+          console.log(ui.value);
+          var value = ui.value;
+          var day = value / 24;
+          var hour = value % 24;
+          day = (day < 4)? day + 28: day - 3;
+          global_filter['time'].end[0] = day;
+          global_filter['time'].end[1] = hour;
+          // next tick
+          // setTimeout(function() {
+          //   updateFilter();
+          // }, 1);
+        },
+      })
+      .each(function() {
+        // Space out values
+        var day_captions= ['Dec 28', 'Dec 29', 'Dec 30', 'Dec 31', 'Jan 1', 'Jan 2', 'Jan 3'];
+        for (var i = 0, len = day_captions.length; i < len; ++i) {
+          var el = $('<label>' + day_captions[i] + '</label>').css('left',(i/(len)*100)+'%');
+          $( "#slider" ).append(el);
+        }
+      });
 
       //- $slider.slider('disable');
       startTimelineScene();
@@ -323,36 +323,36 @@ d3.csv("data/trial-100"+".csv", function(error, data) {
 
 });
 
-// function updateFilter() {
-//   var filtered_data = filterUtil(dataset, global_filter);
-//   var data;
-//   var optimizeSpeed = true;
-//   var isDead;
-//   var ndead = 0;
-//   console.log(filtered_data.length);
-//   // clear old dots
-//   injuryMap.selectAll('*').remove();
-//   casualtyMap.selectAll('*').remove();
-//
-//   for (var i=0; i<filtered_data.length; i++) {
-//     data = filtered_data[i];
-//     isDead = data['ผลการรักษา'].indexOf('ตาย') >= 0;
-//     if (isDead) ndead++;
-//
-//     // avoid rendering some injury accidents
-//     // to reduce computation time
-//     if (optimizeSpeed && !isDead && i%5 != 0) {
-//       //- counter++;
-//     } else if (shoot(data, isDead, i, false)) {
-//       //- counter++;
-//     }
-//   }
-//
-//   $('#total-casualty .count').text(number_format(filtered_data.length));
-//   $('#died-casualty .count').text(number_format(ndead));
-//   $('#injured-casualty .count').text(number_format(filtered_data.length - ndead));
-//
-// }
+function updateFilter() {
+  var filtered_data = filterUtil(dataset, global_filter);
+  var data;
+  var optimizeSpeed = true;
+  var isDead;
+  var ndead = 0;
+  console.log(filtered_data.length);
+  // clear old dots
+  injuryMap.selectAll('*').remove();
+  casualtyMap.selectAll('*').remove();
+
+  for (var i=0; i<filtered_data.length; i++) {
+    data = filtered_data[i];
+    isDead = data['ผลการรักษา'].indexOf('ตาย') >= 0;
+    if (isDead) ndead++;
+
+    // avoid rendering some injury accidents
+    // to reduce computation time
+    if (optimizeSpeed && !isDead && i%5 != 0) {
+      //- counter++;
+    } else if (shoot(data, isDead, i, false)) {
+      //- counter++;
+    }
+  }
+
+  $('#total-casualty .count').text(number_format(filtered_data.length));
+  $('#died-casualty .count').text(number_format(ndead));
+  $('#injured-casualty .count').text(number_format(filtered_data.length - ndead));
+
+}
 
 function endScene() {
   $('#filter-panel').fadeIn();
@@ -368,7 +368,7 @@ function startTimelineScene() {
   var parallelism = 1;
   var counter = 0;
 
-  var now = [ 28, 0 ];
+  var now = [ 3001, 0 ];
   var selected_data;
   var selected_counter = 0;
 
@@ -383,7 +383,8 @@ function startTimelineScene() {
     // console.log(now[0]);
     // console.log(selected_data);
     // console.log(selected_counter);
-    // if (now[0] == 4) return null;
+    // if (now[0] == 15000) return null;
+    if (now[0] == 3002) return null;
     if (selected_data && selected_counter < selected_data.length) {
       return selected_data[selected_counter++];
     }
@@ -395,11 +396,14 @@ function startTimelineScene() {
     selected_data = databucket[now[0]] ? databucket[now[0]][now[1]] : [];
     selected_counter = 0;
 
+    console.log(now);
     // move to next time slot
     now[1]++;
-    if (now[1] === 2) {
+    if (now[1] === 3) {
       now[0]++;
-      if (now[0] > 31) now[0] = 1;
+      if (((now[0] - 365)%1000) == 0) {
+        now[0] += 1000;
+      }
       now[1] = 0;
     }
 
@@ -409,7 +413,7 @@ function startTimelineScene() {
 
   function updateTimelineScene() {
     var data;
-    var optimizeSpeed = counter > 400;
+    var optimizeSpeed = counter > 200;
     var $display;
 
     try {
@@ -463,7 +467,7 @@ function startTimelineScene() {
     }
 
     // finish at date 4
-    if (now[0] === 4) {
+    if (now[0] === 15000) {
       clearInterval(intervalId);
       endScene();
     }
@@ -590,11 +594,11 @@ function shoot(data, order, animate) {
         return 'accident accident-dead accident-'+order;
       })
       .attr('cx', function(d) {
-        return d.center[0] + Math.random()*dv*2 - dv;
+        return d.center[0] + Math.random()*dv*0.5 - dv;
         //- return projection(d.center)[0] + Math.random()*dv*2 - dv;
       })
       .attr('cy', function(d) {;
-        return d.center[1] + Math.random()*dv*2 - dv;
+        return d.center[1] + Math.random()*dv*0.5 - dv;
         //- return projection(d.center)[1] + Math.random()*dv*2 - dv;
       });
     circle
@@ -602,9 +606,9 @@ function shoot(data, order, animate) {
 
     if (animate) {
       circle
-        .attr('r', function(d) { return 3; })
+        .attr('r', function(d) { return 20; })
         .transition()
-        .attr('r', function(d) { return 1; });
+        .attr('r', function(d) { return 0; });
     } else {
       circle
         .attr('r', function(d) { return 1; });

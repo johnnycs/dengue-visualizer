@@ -7,65 +7,190 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Dengue Visualiser</title>
+    <link href="asset/main.css" rel="stylesheet">
     <link href="asset/bootstrap.min.css" rel="stylesheet">
     <link href="asset/jumbotron-narrow.css" rel="stylesheet">
+    <link rel="stylesheet" href="asset/jquery-ui.min.css">
+
+    <!-- <link rel="stylesheet" href="public/dep/bootstrap/dist/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="public/dep/jquery-ui/themes/excite-bike/jquery-ui.min.css"> -->
+    <!-- <link rel="stylesheet" href="public/css/main.css"> -->
+
+    <!-- <script src="public/dep/jquery/dist/jquery.min.js"></script> -->
+    <!-- <script src="public/dep/jquery-ui/jquery-ui.min.js"></script> -->
+    <!-- <script src="public/dep/bootstrap/js/dropdown.js"></script> -->
+    <!-- <script src="public/dep/d3/d3.js"></script> -->
+    <!-- <script src="public/dep/d3-tip/index.js"></script> -->
+
   </head>
-
   <body>
-
-    <div class="container">
-      <div class="header clearfix">
-        <!-- <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="#">Home</a></li>
-            <li role="presentation"><a href="#">About</a></li>
-            <li role="presentation"><a href="#">Contact</a></li>
-          </ul>
-        </nav> -->
-        <h3 class="text-muted" style="margin-top:20px;">Dengue Visualizer</h3>
-      </div>
-
-      <div class="jumbotron">
-        <!-- <canvas id="myCanvas" width="450" height="700">
-              Sorry, your browser doesn't support the &lt;canvas&gt; element.
-        </canvas> -->
-        <div id="vis"></div>
-      </div>
-
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="header clearfix">
+          <div class="col-xs-12 col-md-offset-1">
+            <h2 class="text-muted" style="margin-top:20px;">Dengue Visualizer</h2>
+          </div>
         </div>
       </div>
-
-      <footer class="footer">
-        <p>© 2016 Company, Inc.</p>
-      </footer>
-
+      <div class="row">
+        <div class="col-md-12">
+          <div class="jumbotron" style="margin-left:50px;margin-right:50px;">
+            <div class="row">
+              <div class="col-md-7">
+                <div id="side-panel">
+                  <h2>Dengue cases by year
+                    <div class="dropdown" id="select-year"><a class="dropdown-toggle" id="select-year-btn" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></a>
+                      <ul class="dropdown-menu" aria-labelledby="select-year-btn">
+                        <li><a href="?year=2003">2003</a></li>
+                        <li><a href="?year=2004">2004</a></li>
+                        <li><a href="?year=2005">2005</a></li>
+                        <li><a href="?year=2006">2006</a></li>
+                        <li><a href="?year=2007">2007</a></li>
+                        <li><a href="?year=2008">2008</a></li>
+                        <li><a href="?year=2009">2009</a></li>
+                        <li><a href="?year=2010">2010</a></li>
+                        <li><a href="?year=2011">2011</a></li>
+                        <li><a href="?year=2012">2012</a></li>
+                        <li><a href="?year=2013">2013</a></li>
+                        <li><a href="?year=2014">2014</a></li>
+                      </ul>
+                    </div>
+                  </h2>
+                  <div class="timeline" id="timeline">
+                    <div id="slider"></div>
+                    <div id="slider_caption"></div>
+                  </div>
+                    <h3>Prevalence: </h3>
+                    <div class="number-display" id="total-casualty">
+                      <div class="count">0</div>
+                      <div class="text">dengue cases</div>
+                    </div>
+                    <div id="filter-panel" style="display: none">
+                      <hr>
+                      <h3>Filter</h3>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="filter-display" id="age-filter">
+                            <h4>Month</h4>
+                            <ul class="filter-options">
+                              <li><a href="#" data-filter="month" data-value="1">Jan</a></li>
+                              <li><a href="#" data-filter="month" data-value="2">Feb</a></li>
+                              <li><a href="#" data-filter="month" data-value="3">Mar</a></li>
+                              <li><a href="#" data-filter="month" data-value="4">Apr</a></li>
+                              <li><a href="#" data-filter="month" data-value="5">May</a></li>
+                              <li><a href="#" data-filter="month" data-value="6">June</a></li>
+                              <li><a href="#" data-filter="month" data-value="7">July</a></li>
+                              <li><a href="#" data-filter="month" data-value="8">Aug</a></li>
+                              <li><a href="#" data-filter="month" data-value="9">Sep</a></li>
+                              <li><a href="#" data-filter="month" data-value="10">Oct</a></li>
+                              <li><a href="#" data-filter="month" data-value="11">Nov</a></li>
+                              <li><a href="#" data-filter="month" data-value="12">Dec</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="filter-display" id="age-filter">
+                            <h4>Province</h4>
+                            <ul class="filter-options">
+                              <li><a href="#" data-filter="state" data-value="1">Bangkok</a></li>
+                              <li><a href="#" data-filter="state" data-value="2">SamutPrakan</a></li>
+                              <li><a href="#" data-filter="state" data-value="3">Nonthaburi</a></li>
+                              <li><a href="#" data-filter="state" data-value="4">PhraNakhonSiAyutthaya</a></li>
+                              <li><a href="#" data-filter="state" data-value="5">AngThong</a></li>
+                              <li><a href="#" data-filter="state" data-value="6">LopBuri</a></li>
+                              <li><a href="#" data-filter="state" data-value="7">SingBuri</a></li>
+                              <li><a href="#" data-filter="state" data-value="8">ChaiNat</a></li>
+                              <li><a href="#" data-filter="state" data-value="9">Saraburi</a></li>
+                              <li><a href="#" data-filter="state" data-value="10">ChonBuri</a></li>
+                              <li><a href="#" data-filter="state" data-value="11">Rayong</a></li>
+                              <li><a href="#" data-filter="state" data-value="12">Chanthaburi</a></li>
+                              <li><a href="#" data-filter="state" data-value="13">Trat</a></li>
+                              <li><a href="#" data-filter="state" data-value="14">Chachoengsao</a></li>
+                              <li><a href="#" data-filter="state" data-value="15">PrachinBuri</a></li>
+                              <li><a href="#" data-filter="state" data-value="16">NakhonNayok</a></li>
+                              <li><a href="#" data-filter="state" data-value="17">SaKaeo</a></li>
+                              <li><a href="#" data-filter="state" data-value="18">NakhonRatchasima</a></li>
+                              <li><a href="#" data-filter="state" data-value="19">BuriRam</a></li>
+                              <li><a href="#" data-filter="state" data-value="20">Surin</a></li>
+                              <li><a href="#" data-filter="state" data-value="21">SiSaKet</a></li>
+                              <li><a href="#" data-filter="state" data-value="22">UbonRatchathani</a></li>
+                              <li><a href="#" data-filter="state" data-value="23">Yasothon</a></li>
+                              <li><a href="#" data-filter="state" data-value="24">Chaiyaphum</a></li>
+                              <li><a href="#" data-filter="state" data-value="25">AmnatCharoen</a></li>
+                              <li><a href="#" data-filter="state" data-value="26">NongBuaLamPhu</a></li>
+                              <li><a href="#" data-filter="state" data-value="27">UdonThani</a></li>
+                              <li><a href="#" data-filter="state" data-value="28">Loei</a></li>
+                              <li><a href="#" data-filter="state" data-value="29">NongKhai</a></li>
+                              <li><a href="#" data-filter="state" data-value="30">RoiEt</a></li>
+                              <li><a href="#" data-filter="state" data-value="31">Kalasin</a></li>
+                              <li><a href="#" data-filter="state" data-value="32">SakonNakhon</a></li>
+                              <li><a href="#" data-filter="state" data-value="33">NakhonPhanom</a></li>
+                              <li><a href="#" data-filter="state" data-value="34">Mukdahan</a></li>
+                              <li><a href="#" data-filter="state" data-value="35">ChiangMai</a></li>
+                              <li><a href="#" data-filter="state" data-value="36">Lamphun</a></li>
+                              <li><a href="#" data-filter="state" data-value="37">Lampang</a></li>
+                              <li><a href="#" data-filter="state" data-value="38">Uttaradit</a></li>
+                              <li><a href="#" data-filter="state" data-value="39">Phrae</a></li>
+                              <li><a href="#" data-filter="state" data-value="40">Nan</a></li>
+                              <li><a href="#" data-filter="state" data-value="41">Phayao</a></li>
+                              <li><a href="#" data-filter="state" data-value="42">ChiangRai</a></li>
+                              <li><a href="#" data-filter="state" data-value="43">MaeHongSon</a></li>
+                              <li><a href="#" data-filter="state" data-value="44">NakhonSawan</a></li>
+                              <li><a href="#" data-filter="state" data-value="45">UthaiThani</a></li>
+                              <li><a href="#" data-filter="state" data-value="46">KamphaengPhet</a></li>
+                              <li><a href="#" data-filter="state" data-value="47">Tak</a></li>
+                              <li><a href="#" data-filter="state" data-value="48">Sukhothai</a></li>
+                              <li><a href="#" data-filter="state" data-value="49">Phitsanulok</a></li>
+                              <li><a href="#" data-filter="state" data-value="50">Phichit</a></li>
+                              <li><a href="#" data-filter="state" data-value="51">Phetchabun</a></li>
+                              <li><a href="#" data-filter="state" data-value="52">Ratchaburi</a></li>
+                              <li><a href="#" data-filter="state" data-value="53">Kanchanaburi</a></li>
+                              <li><a href="#" data-filter="state" data-value="54">SuphanBuri</a></li>
+                              <li><a href="#" data-filter="state" data-value="55">NakhonPathom</a></li>
+                              <li><a href="#" data-filter="state" data-value="56">SamutSakhon</a></li>
+                              <li><a href="#" data-filter="state" data-value="57">SamutSongkhram</a></li>
+                              <li><a href="#" data-filter="state" data-value="58">Phetchaburi</a></li>
+                              <li><a href="#" data-filter="state" data-value="59">PrachuapKhiriKhan</a></li>
+                              <li><a href="#" data-filter="state" data-value="60">NakhonSiThammarat</a></li>
+                              <li><a href="#" data-filter="state" data-value="61">Krabi</a></li>
+                              <li><a href="#" data-filter="state" data-value="62">Phang-nga</a></li>
+                              <li><a href="#" data-filter="state" data-value="63">Phuket</a></li>
+                              <li><a href="#" data-filter="state" data-value="64">SuratThani</a></li>
+                              <li><a href="#" data-filter="state" data-value="65">Ranong</a></li>
+                              <li><a href="#" data-filter="state" data-value="66">Chumphon</a></li>
+                              <li><a href="#" data-filter="state" data-value="67">Songkhla</a></li>
+                              <li><a href="#" data-filter="state" data-value="68">Satun</a></li>
+                              <li><a href="#" data-filter="state" data-value="69">Trang</a></li>
+                              <li><a href="#" data-filter="state" data-value="70">Phatthalung</a></li>
+                              <li><a href="#" data-filter="state" data-value="71">Pattani</a></li>
+                              <li><a href="#" data-filter="state" data-value="72">Yala</a></li>
+                              <li><a href="#" data-filter="state" data-value="73">Narathiwat</a></li>
+                              <li><a href="#" data-filter="state" data-value="74">PathumThani</a></li>
+                              <li><a href="#" data-filter="state" data-value="75">KhonKaen</a></li>
+                              <li><a href="#" data-filter="state" data-value="76">MahaSarakham</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div id="vis"></div>
+              </div>
+            </div>
+          </div>
+      </div>
     </div> <!-- /container -->
-    <script type="text/javascript" src="jquery.min.js"></script>
-    <script type="text/javascript" src="jquery-ui.min.js"></script>
-    <script type="text/javascript" src="d3.js"> </script>
-    <script type="text/javascript" src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/dropdown.js"></script>
+    <script type="text/javascript" src="js/d3.js"> </script>
+    <script type="text/javascript" src="js/index.js"> </script>
+    <!-- <script type="text/javascript" src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script> -->
     <!-- <script type="text/javascript" src="drawmap.js"></script> -->
-    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="realmain.js"></script>
   </body>
 </html>
