@@ -7,9 +7,21 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Dengue Visualiser</title>
-    <link href="main.css" rel="stylesheet">
+    <link href="asset/main.css" rel="stylesheet">
     <link href="asset/bootstrap.min.css" rel="stylesheet">
     <link href="asset/jumbotron-narrow.css" rel="stylesheet">
+    <link rel="stylesheet" href="asset/jquery-ui.min.css">
+
+    <!-- <link rel="stylesheet" href="public/dep/bootstrap/dist/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="public/dep/jquery-ui/themes/excite-bike/jquery-ui.min.css"> -->
+    <!-- <link rel="stylesheet" href="public/css/main.css"> -->
+
+    <!-- <script src="public/dep/jquery/dist/jquery.min.js"></script> -->
+    <!-- <script src="public/dep/jquery-ui/jquery-ui.min.js"></script> -->
+    <!-- <script src="public/dep/bootstrap/js/dropdown.js"></script> -->
+    <!-- <script src="public/dep/d3/d3.js"></script> -->
+    <!-- <script src="public/dep/d3-tip/index.js"></script> -->
+
   </head>
   <body>
     <div class="container-fluid">
@@ -28,18 +40,15 @@
                 <div id="vis"></div>
               </div>
               <div class="col-md-5 col-md-offset-1">
-                <!-- <div class="row marketing">
-                  <h4>Subheading</h4>
-                  <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-                  <h4>Subheading</h4>
-                  <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-                  <h4>Subheading</h4>
-                  <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-                </div> -->
                 <div id="side-panel">
-                  <h4>Accidents during New Year Holidays
+                  <h4>Dengue Cases
                     <div class="dropdown" id="select-year"><a class="dropdown-toggle" id="select-year-btn" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></a>
                       <ul class="dropdown-menu" aria-labelledby="select-year-btn">
+                        <li><a href="?year=2003">2003</a></li>
+                        <li><a href="?year=2004">2004</a></li>
+                        <li><a href="?year=2005">2005</a></li>
+                        <li><a href="?year=2006">2006</a></li>
+                        <li><a href="?year=2007">2007</a></li>
                         <li><a href="?year=2008">2008</a></li>
                         <li><a href="?year=2009">2009</a></li>
                         <li><a href="?year=2010">2010</a></li>
@@ -47,7 +56,6 @@
                         <li><a href="?year=2012">2012</a></li>
                         <li><a href="?year=2013">2013</a></li>
                         <li><a href="?year=2014">2014</a></li>
-                        <li><a href="?year=2015">2015</a></li>
                       </ul>
                     </div>
                   </h4>
@@ -55,19 +63,49 @@
                     <div id="slider"></div>
                     <div id="slider_caption"></div>
                   </div>
+                    <h3>Result</h3>
+                    <div class="number-display" id="total-casualty">
+                      <div class="count">0</div>
+                      <div class="text">dengue cases</div>
+                    </div>
+                    <div id="filter-panel" style="display: none">
+                      <hr>
+                      <h3>Filter</h3>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="filter-display" id="age-filter">
+                            <h5>Month</h5>
+                            <ul class="filter-options">
+                              <li><a href="#" data-filter="month" data-value="1">Jan</a></li>
+                              <li><a href="#" data-filter="month" data-value="2">Feb</a></li>
+                              <li><a href="#" data-filter="month" data-value="3">Mar</a></li>
+                              <li><a href="#" data-filter="month" data-value="4">Apr</a></li>
+                              <li><a href="#" data-filter="month" data-value="5">May</a></li>
+                              <li><a href="#" data-filter="month" data-value="6">June</a></li>
+                              <li><a href="#" data-filter="month" data-value="7">July</a></li>
+                              <li><a href="#" data-filter="month" data-value="8">Aug</a></li>
+                              <li><a href="#" data-filter="month" data-value="9">Sep</a></li>
+                              <li><a href="#" data-filter="month" data-value="10">Oct</a></li>
+                              <li><a href="#" data-filter="month" data-value="11">Nov</a></li>
+                              <li><a href="#" data-filter="month" data-value="12">Dec</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                 </div>
               </div>
             </div>
           </div>
       </div>
-
     </div> <!-- /container -->
-    <script type="text/javascript" src="jquery.min.js"></script>
-    <script type="text/javascript" src="jquery-ui.min.js"></script>
-    <script type="text/javascript" src="dropdown.js"></script>
-    <script type="text/javascript" src="d3.js"> </script>
-    <script type="text/javascript" src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/dropdown.js"></script>
+    <script type="text/javascript" src="js/d3.js"> </script>
+    <script type="text/javascript" src="js/index.js"> </script>
+    <!-- <script type="text/javascript" src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script> -->
     <!-- <script type="text/javascript" src="drawmap.js"></script> -->
-    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="realmain.js"></script>
   </body>
 </html>

@@ -217,7 +217,7 @@ var province_data = [];
 var number_format = d3.format('0,000');
 var injured_color = d3.rgb('#57c3d3');
 
-d3.json("thailand.json", function (json) {
+d3.json("data/thailand.json", function (json) {
 
   parse_province(json);
 
