@@ -46,8 +46,8 @@ function ageWrapper(ageRangeArrayFilter, age) {
 }
 
 function filterUtil(data, filter) {
-  console.log(data);
-  console.log(filter);
+  // console.log(data);
+  // console.log(filter);
   // Check if all filters are specified. If not, error and return empty array.
   // if (!(filter.year && filter.year.start && filter.year.end &&
   //       filter.time && filter.time.start && filter.time.end &&
@@ -56,13 +56,31 @@ function filterUtil(data, filter) {
   //       filter.safety &&
   //       filter.vehicle &&
   //       filter.hitBy)) {
-  if (!(filter.month)) {
+  if (!(filter.month && filter.state)) {
     console.error('Please specify all filters. For now, we will just return empty result for you.');
     return [];
   }
   var result = data.filter(function(d) {
     var sex_map = {'unknown' : 0, 'หญิง' : 1, 'ชาย' : 2};
     var month_map = {'01':1,'02':2,'03':3,'04':4,'05':5,'06':6,'07':7,'08':8,'09':9,'10':10,'11':11,'12':12}
+    var state_map = {
+                    'Bangkok':1,'SamutPrakan':2,'Nonthaburi':3,'PhraNakhonSiAyutthaya':4,
+                    'AngThong':5,'LopBuri':6,'SingBuri':7,'ChaiNat':8,'Saraburi':9,'ChonBuri':10,
+                    'Rayong':11,'Chanthaburi':12,'Trat':13,'Chachoengsao':14,'PrachinBuri':15,
+                    'NakhonNayok':16,'SaKaeo':17,'NakhonRatchasima':18,'BuriRam':19,'Surin':20,
+                    'SiSaKet':21,'UbonRatchathani':22,'Yasothon':23,'Chaiyaphum':24,'AmnatCharoen':25,
+                    'NongBuaLamPhu':26,'UdonThani':27,'Loei':28,'NongKhai':29,'RoiEt':30,
+                    'Kalasin':31,'SakonNakhon':32,'NakhonPhanom':33,'Mukdahan':34,'ChiangMai':35,
+                    'Lamphun':36,'Lampang':37,'Uttaradit':38,'Phrae':39,'Nan':40,'Phayao':41,
+                    'ChiangRai':42,'MaeHongSon':43,'NakhonSawan':44,'UthaiThani':45,'KamphaengPhet':46,
+                    'Tak':47,'Sukhothai':48,'Phitsanulok':49,'Phichit':50,'Phetchabun':51,
+                    'Ratchaburi':52,'Kanchanaburi':53,'SuphanBuri':54,'NakhonPathom':55,'SamutSakhon':56,
+                    'SamutSongkhram':57,'Phetchaburi':58,'PrachuapKhiriKhan':59,'NakhonSiThammarat':60,
+                    'Krabi':61,'Phang-nga':62,'Phuket':63,'SuratThani':64,'Ranong':65,
+                    'Chumphon':66,'Songkhla':67,'Satun':68,'Trang':69,'Phatthalung':70,'Pattani':71,
+                    'Yala':72,'Narathiwat':73,'PathumThani':74,'KhonKaen':75,'MahaSarakham':76
+                    }
+
     // var alcohol_map = {'unknown' : 0, 'ไม่ดื่ม' : 1, 'ดื่ม' : 2};
     // var safety_map = {'unknown' : 0, 'ไม่ใส่' : 1, 'ใส่หมวก' : 2, 'เข็มขัด' : 2};
     // var vehicle_map = {
@@ -74,6 +92,7 @@ function filterUtil(data, filter) {
     //   'รถบรรทุก' : 5, 'รถโดยสารใหญ่' : 5, 'ปิคอัพ' : 5,
     // };
     var month_filter = findMatchWithArrayFilter(filter.month, genericMapper(d['เดือน'],month_map));
+    var state_filter = findMatchWithArrayFilter(filter.state, genericMapper(d['จังหวัด'],state_map));
     // var time = timeWrapper(d['วันที่เกิดเหตุ'], d['เวลาเกิดเหตุ']);
     // var time_filter_start = timeWrapper(filter.time.start[0], filter.time.start[1]);
     // var time_filter_end = timeWrapper(filter.time.end[0], filter.time.end[1]);
@@ -95,7 +114,7 @@ function filterUtil(data, filter) {
     //   " vehicle: " + vehicle_filter +
     //   " hitBy: " + hitBy_filter);
     // return year_filter && time_filter && sex_filter && age_filter && alcohol_filter && safety_filter && vehicle_filter && hitBy_filter;
-    return month_filter;
+    return month_filter && state_filter;
   });
   return result;
 }
@@ -157,7 +176,17 @@ function parse_search_string(str) {
 var qs = parse_search_string(location.search.slice(1));
 var select_year = Number(qs.year || 2008);
 var default_global_filter = {
-  month: [0,1,2,3,4,5,6,7,8,9,10,11,12]
+  month: [0,1,2,3,4,5,6,7,8,9,10,11,12],
+  state: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+          11, 12, 13, 14, 15, 16, 17, 18,
+          19, 20, 21, 22, 23, 24, 25, 26,
+          27, 28, 29, 30, 31, 32, 33, 34,
+          35, 36, 37, 38, 39, 40, 41, 42,
+          43, 44, 45, 46, 47, 48, 49, 50,
+          51, 52, 53, 54, 55, 56, 57, 58,
+          59, 60, 61, 62, 63, 64, 65, 66,
+          67, 68, 69, 70, 71, 72, 73, 74,
+          75, 76]
   // year: {start: select_year, end: select_year},
   // time: {start: [28, 0], end: [3, 23]},
   // sex: [0,1,2],
@@ -393,7 +422,7 @@ function updateFilter() {
   var filtered_data = filterUtil(dataset, global_filter);
   var data;
   var optimizeSpeed = true;
-  var isDead;
+  // var isDead;
   var ndead = 0;
   console.log(filtered_data.length);
   // clear old dots
@@ -407,9 +436,9 @@ function updateFilter() {
 
     // avoid rendering some injury accidents
     // to reduce computation time
-    if (optimizeSpeed && !isDead && i%5 != 0) {
+    if (optimizeSpeed && i%5 != 0) {
       //- counter++;
-    } else if (shoot(data, isDead, i, false)) {
+    } else if (shoot(data, i, false)) {
       //- counter++;
     }
   }
@@ -472,24 +501,30 @@ function startTimelineScene() {
 
   function updateTimelineScene() {
     var data;
-    var isDead;
+    // var isDead;
     var optimizeSpeed = counter > 400;
     var $display;
 
-    for (var i=0, data=getNext(); data && i<parallelism; data=getNext(), i++) {
-      // isDead = data['ผลการรักษา'].indexOf('ตาย') >= 0;
+    try {
+      for (var i=0, data=getNext(); data && i<parallelism; data=getNext(), i++) {
+        // isDead = data['ผลการรักษา'].indexOf('ตาย') >= 0;
 
-      // update display count
-      // $display = isDead ? $diedCount : $injuredCount;
-      // $display.text(number_format(+$display.text().replace(',', '')+1) );
+        // update display count
+        // $display = isDead ? $diedCount : $injuredCount;
+        // $display.text(number_format(+$display.text().replace(',', '')+1) );
 
-      // avoid rendering some injury accidents
-      // to reduce computation time
-      if (optimizeSpeed && !isDead && i%5 != 0) {
-        counter++;
-      } else if (shoot(data, isDead, counter, true)) {
-        counter++;
+        // avoid rendering some injury accidents
+        // to reduce computation time
+        if (optimizeSpeed && i%5 != 0) {
+          counter++;
+        } else if (shoot(data, counter, true)) {
+          counter++;
+        }
       }
+    } catch (e) {
+
+    } finally {
+
     }
 
     // update display count
@@ -626,7 +661,7 @@ function redraw() {
   yAxis.attr("y1", ty).attr("y2", ty);
 }
 
-function shoot(data, isDead, order, animate) {
+function shoot(data, order, animate) {
   var province_id = data['รหัสจังหวัด'];
   var p = province[province_id];
   if (!p) return false;
@@ -637,11 +672,11 @@ function shoot(data, isDead, order, animate) {
   data.center = path.centroid(p);
 
   var p_data = [data];
-  var dv = Math.log(order+1) * 2;
+  var dv = Math.log(order+1);
 
   // add accident point randomly
-  var color = isDead ? dead_color.hsl().toString() : injured_color.hsl().toString();
-  var parent = isDead ? casualtyMap : injuryMap;
+  var color = injured_color.hsl().toString();
+  var parent = injuryMap;
   var circle = parent.selectAll(".accident-"+order)
     .data(p_data)
     .enter().append("svg:circle")
@@ -649,11 +684,11 @@ function shoot(data, isDead, order, animate) {
         return 'accident accident-dead accident-'+order;
       })
       .attr('cx', function(d) {
-        return d.center[0] + Math.random()*dv*0.5 - dv;
+        return d.center[0] + Math.random()*dv*0.25 - dv;
         //- return projection(d.center)[0] + Math.random()*dv*2 - dv;
       })
       .attr('cy', function(d) {;
-        return d.center[1] + Math.random()*dv*0.5 - dv;
+        return d.center[1] + Math.random()*dv*0.25 - dv;
         //- return projection(d.center)[1] + Math.random()*dv*2 - dv;
       });
     circle

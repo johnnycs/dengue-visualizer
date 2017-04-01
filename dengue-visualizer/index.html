@@ -36,12 +36,9 @@
         <div class="col-md-12">
           <div class="jumbotron" style="margin-left:50px;margin-right:50px;">
             <div class="row">
-              <div class="col-md-5">
-                <div id="vis"></div>
-              </div>
-              <div class="col-md-5 col-md-offset-1">
+              <div class="col-md-7">
                 <div id="side-panel">
-                  <h4>Dengue Cases
+                  <h2>Dengue cases by year
                     <div class="dropdown" id="select-year"><a class="dropdown-toggle" id="select-year-btn" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><span class="caret"></span></a>
                       <ul class="dropdown-menu" aria-labelledby="select-year-btn">
                         <li><a href="?year=2003">2003</a></li>
@@ -58,12 +55,12 @@
                         <li><a href="?year=2014">2014</a></li>
                       </ul>
                     </div>
-                  </h4>
+                  </h2>
                   <div class="timeline" id="timeline">
                     <div id="slider"></div>
                     <div id="slider_caption"></div>
                   </div>
-                    <h3>Result</h3>
+                    <h3>Prevalence: </h3>
                     <div class="number-display" id="total-casualty">
                       <div class="count">0</div>
                       <div class="text">dengue cases</div>
@@ -74,7 +71,7 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="filter-display" id="age-filter">
-                            <h5>Month</h5>
+                            <h4>Month</h4>
                             <ul class="filter-options">
                               <li><a href="#" data-filter="month" data-value="1">Jan</a></li>
                               <li><a href="#" data-filter="month" data-value="2">Feb</a></li>
@@ -92,8 +89,96 @@
                           </div>
                         </div>
                       </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="filter-display" id="age-filter">
+                            <h4>Province</h4>
+                            <ul class="filter-options">
+                              <li><a href="#" data-filter="state" data-value="1">Bangkok</a></li>
+                              <li><a href="#" data-filter="state" data-value="2">SamutPrakan</a></li>
+                              <li><a href="#" data-filter="state" data-value="3">Nonthaburi</a></li>
+                              <li><a href="#" data-filter="state" data-value="4">PhraNakhonSiAyutthaya</a></li>
+                              <li><a href="#" data-filter="state" data-value="5">AngThong</a></li>
+                              <li><a href="#" data-filter="state" data-value="6">LopBuri</a></li>
+                              <li><a href="#" data-filter="state" data-value="7">SingBuri</a></li>
+                              <li><a href="#" data-filter="state" data-value="8">ChaiNat</a></li>
+                              <li><a href="#" data-filter="state" data-value="9">Saraburi</a></li>
+                              <li><a href="#" data-filter="state" data-value="10">ChonBuri</a></li>
+                              <li><a href="#" data-filter="state" data-value="11">Rayong</a></li>
+                              <li><a href="#" data-filter="state" data-value="12">Chanthaburi</a></li>
+                              <li><a href="#" data-filter="state" data-value="13">Trat</a></li>
+                              <li><a href="#" data-filter="state" data-value="14">Chachoengsao</a></li>
+                              <li><a href="#" data-filter="state" data-value="15">PrachinBuri</a></li>
+                              <li><a href="#" data-filter="state" data-value="16">NakhonNayok</a></li>
+                              <li><a href="#" data-filter="state" data-value="17">SaKaeo</a></li>
+                              <li><a href="#" data-filter="state" data-value="18">NakhonRatchasima</a></li>
+                              <li><a href="#" data-filter="state" data-value="19">BuriRam</a></li>
+                              <li><a href="#" data-filter="state" data-value="20">Surin</a></li>
+                              <li><a href="#" data-filter="state" data-value="21">SiSaKet</a></li>
+                              <li><a href="#" data-filter="state" data-value="22">UbonRatchathani</a></li>
+                              <li><a href="#" data-filter="state" data-value="23">Yasothon</a></li>
+                              <li><a href="#" data-filter="state" data-value="24">Chaiyaphum</a></li>
+                              <li><a href="#" data-filter="state" data-value="25">AmnatCharoen</a></li>
+                              <li><a href="#" data-filter="state" data-value="26">NongBuaLamPhu</a></li>
+                              <li><a href="#" data-filter="state" data-value="27">UdonThani</a></li>
+                              <li><a href="#" data-filter="state" data-value="28">Loei</a></li>
+                              <li><a href="#" data-filter="state" data-value="29">NongKhai</a></li>
+                              <li><a href="#" data-filter="state" data-value="30">RoiEt</a></li>
+                              <li><a href="#" data-filter="state" data-value="31">Kalasin</a></li>
+                              <li><a href="#" data-filter="state" data-value="32">SakonNakhon</a></li>
+                              <li><a href="#" data-filter="state" data-value="33">NakhonPhanom</a></li>
+                              <li><a href="#" data-filter="state" data-value="34">Mukdahan</a></li>
+                              <li><a href="#" data-filter="state" data-value="35">ChiangMai</a></li>
+                              <li><a href="#" data-filter="state" data-value="36">Lamphun</a></li>
+                              <li><a href="#" data-filter="state" data-value="37">Lampang</a></li>
+                              <li><a href="#" data-filter="state" data-value="38">Uttaradit</a></li>
+                              <li><a href="#" data-filter="state" data-value="39">Phrae</a></li>
+                              <li><a href="#" data-filter="state" data-value="40">Nan</a></li>
+                              <li><a href="#" data-filter="state" data-value="41">Phayao</a></li>
+                              <li><a href="#" data-filter="state" data-value="42">ChiangRai</a></li>
+                              <li><a href="#" data-filter="state" data-value="43">MaeHongSon</a></li>
+                              <li><a href="#" data-filter="state" data-value="44">NakhonSawan</a></li>
+                              <li><a href="#" data-filter="state" data-value="45">UthaiThani</a></li>
+                              <li><a href="#" data-filter="state" data-value="46">KamphaengPhet</a></li>
+                              <li><a href="#" data-filter="state" data-value="47">Tak</a></li>
+                              <li><a href="#" data-filter="state" data-value="48">Sukhothai</a></li>
+                              <li><a href="#" data-filter="state" data-value="49">Phitsanulok</a></li>
+                              <li><a href="#" data-filter="state" data-value="50">Phichit</a></li>
+                              <li><a href="#" data-filter="state" data-value="51">Phetchabun</a></li>
+                              <li><a href="#" data-filter="state" data-value="52">Ratchaburi</a></li>
+                              <li><a href="#" data-filter="state" data-value="53">Kanchanaburi</a></li>
+                              <li><a href="#" data-filter="state" data-value="54">SuphanBuri</a></li>
+                              <li><a href="#" data-filter="state" data-value="55">NakhonPathom</a></li>
+                              <li><a href="#" data-filter="state" data-value="56">SamutSakhon</a></li>
+                              <li><a href="#" data-filter="state" data-value="57">SamutSongkhram</a></li>
+                              <li><a href="#" data-filter="state" data-value="58">Phetchaburi</a></li>
+                              <li><a href="#" data-filter="state" data-value="59">PrachuapKhiriKhan</a></li>
+                              <li><a href="#" data-filter="state" data-value="60">NakhonSiThammarat</a></li>
+                              <li><a href="#" data-filter="state" data-value="61">Krabi</a></li>
+                              <li><a href="#" data-filter="state" data-value="62">Phang-nga</a></li>
+                              <li><a href="#" data-filter="state" data-value="63">Phuket</a></li>
+                              <li><a href="#" data-filter="state" data-value="64">SuratThani</a></li>
+                              <li><a href="#" data-filter="state" data-value="65">Ranong</a></li>
+                              <li><a href="#" data-filter="state" data-value="66">Chumphon</a></li>
+                              <li><a href="#" data-filter="state" data-value="67">Songkhla</a></li>
+                              <li><a href="#" data-filter="state" data-value="68">Satun</a></li>
+                              <li><a href="#" data-filter="state" data-value="69">Trang</a></li>
+                              <li><a href="#" data-filter="state" data-value="70">Phatthalung</a></li>
+                              <li><a href="#" data-filter="state" data-value="71">Pattani</a></li>
+                              <li><a href="#" data-filter="state" data-value="72">Yala</a></li>
+                              <li><a href="#" data-filter="state" data-value="73">Narathiwat</a></li>
+                              <li><a href="#" data-filter="state" data-value="74">PathumThani</a></li>
+                              <li><a href="#" data-filter="state" data-value="75">KhonKaen</a></li>
+                              <li><a href="#" data-filter="state" data-value="76">MahaSarakham</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                 </div>
+              </div>
+              <div class="col-md-4">
+                <div id="vis"></div>
               </div>
             </div>
           </div>

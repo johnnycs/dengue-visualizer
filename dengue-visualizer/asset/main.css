@@ -104,6 +104,11 @@ hr {
   margin-right: 5px;
 }
 
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
 /*.vis-container {
   overflow: hidden;
   margin-top: -160px;
@@ -220,6 +225,56 @@ hr {
 #select-year .dropdown-menu a.selected:hover, #select-year .dropdown-menu a.selected:active {
   color: #b37400;
 }
+/*here*/
+
+/*#select-state {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 1.4rem;
+}
+
+#select-state .dropdown-toggle {
+  font-size: 3.2rem;
+  color: orange;
+  background: none;
+  border: none;
+}
+
+#select-state .dropdown-toggle .caret {
+  -webkit-transform: scale(1.4) translateX(5px);
+  -khtml-transform: scale(1.4) translateX(5px);
+  -moz-transform: scale(1.4) translateX(5px);
+  -ms-transform: scale(1.4) translateX(5px);
+  -o-transform: scale(1.4) translateX(5px);
+  transform: scale(1.4) translateX(5px);
+}
+
+#select-state .dropdown-menu {
+  background: #2c2b2b;
+}
+
+#select-state .dropdown-menu a {
+  color: #ffffff;
+  background-color: transparent;
+}
+
+#select-state .dropdown-menu a:hover, #select-state .dropdown-menu a:active {
+  color: #b3b2b2;
+}
+
+#select-state .dropdown-menu a:hover, #select-state .dropdown-menu a:active {
+  background-color: #666;
+}
+
+#select-state .dropdown-menu a.selected {
+  color: orange;
+}
+
+#select-state .dropdown-menu a.selected:hover, #select-state .dropdown-menu a.selected:active {
+  color: #b37400;
+}*/
+
+/*here*/
 
 #timeline {
   width: 100%;
