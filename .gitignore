@@ -1,1 +1,4 @@
 opendata-hackathon-2015/
+*.ipynb
+.DS_Store
+*.pickle
